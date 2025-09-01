@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="001-create-facilities-tables" author="niyi">
+        <createTable tableName="facilities">
+            <column name="facility_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="facility_code" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="facility_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facility_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="level_of_care" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lga" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dhis2_org_unit_id" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_phone" type="VARCHAR(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-create-facility-indexes" author="niyi">
+        <createIndex tableName="facilities" indexName="idx_facilities_facility_code">
+            <column name="facility_code"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_facility_name">
+            <column name="facility_name"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_state">
+            <column name="state"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_lga">
+            <column name="lga"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_facility_type">
+            <column name="facility_type"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_level_of_care">
+            <column name="level_of_care"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_is_active">
+            <column name="is_active"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_active_state">
+            <column name="is_active"/>
+            <column name="state"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_active_lga">
+            <column name="is_active"/>
+            <column name="lga"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_dhis2_org_unit_id">
+            <column name="dhis2_org_unit_id"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_created_at">
+            <column name="created_at"/>
+        </createIndex>
+        <createIndex tableName="facilities" indexName="idx_facilities_updated_at">
+            <column name="updated_at"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
