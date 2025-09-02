@@ -1,0 +1,137 @@
+spring:
+  application:
+    name: MHIS
+    version: 1.0.0
+    description: Maternal Health Information System (MHIS) with Integrated PMTCT Module
+
+  profiles:
+    active: dev
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+  # Cache Configuration
+  cache:
+    type: simple
+
+
+
+  # Jackson Configuration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: NON_NULL
+
+  # Servlet Configuration
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
+
+
+logging:
+  level:
+    com.niyiment.mhis: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+
+
+# Management/Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,env,beans,mappings
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: when-authorized
+    env:
+      show-values: when-authorized
+  health:
+    diskspace:
+      enabled: true
+    db:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  info:
+    env:
+      enabled: true
+    build:
+      enabled: true
+    git:
+      enabled: true
+
+
+
+
+# Application Specific Configuration
+app:
+  name: MHIS
+  version: 1.0.0
+  description: Maternal Health Information System (MHIS) with Integrated PMTCT Module
+  cors:
+    allowed-origins: "http://localhost:3000,http://localhost:4200"
+    allowed-methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS"
+    allowed-headers: "*"
+    allow-credentials: true
+  rate-limit:
+    requests-per-minute: 100
+  pagination:
+    default-page-size: 20
+    max-page-size: 100
+
+# API Documentation
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    groups-order: DESC
+    operations-sorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+  info:
+    title: MHIS
+    description: Maternal Health Information System (MHIS) with Integrated PMTCT Module
+    version: 1.0.0
+    contact:
+      name: Niyi
+      email: niyiment@gmail.com
+
+

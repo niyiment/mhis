@@ -1,18 +1,14 @@
 package com.niyiment.mhis.facility.exception;
 
-import com.niyiment.mhis.facility.domain.model.FacilityCode;
-import com.niyiment.mhis.facility.domain.model.FacilityId;
+import java.util.UUID;
 
 public class FacilityNotFoundException extends RuntimeException {
-  public FacilityNotFoundException(FacilityId facilityId) {
-    super(String.format("Facility with ID %s not found", facilityId));
+  public FacilityNotFoundException(UUID facilityId) {
+    super(String.format("Facility with ID %s not found", facilityId.toString()));
   }
 
-  public FacilityNotFoundException(FacilityCode facilityCode) {
+  public FacilityNotFoundException(String facilityCode) {
     super(String.format("Facility with code %s not found", facilityCode));
   }
 
-  public FacilityNotFoundException(String message) {
-    super(message);
-  }
 }

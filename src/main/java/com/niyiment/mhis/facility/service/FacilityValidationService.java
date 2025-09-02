@@ -1,16 +1,17 @@
 package com.niyiment.mhis.facility.service;
 
 
+import com.niyiment.mhis.facility.domain.Facility;
 import com.niyiment.mhis.facility.exception.FacilityValidationException;
-import com.niyiment.mhis.facility.domain.model.Facility;
 import com.niyiment.mhis.facility.domain.FacilityType;
 import com.niyiment.mhis.facility.domain.LevelOfCare;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Pattern;
 
-@Service
+
+@Component
 public class FacilityValidationService {
     private static final Pattern CODE_PATTERN = Pattern.compile("^[A-Z0-9]{3,20}$");
 
@@ -26,7 +27,7 @@ public class FacilityValidationService {
     }
 
     private void validateBasicFacilityData(Facility facility) {
-        if (facility.getFacilityCode() == null) {
+        if (StringUtils.hasText(facility.getFacilityCode())) {
             throw new FacilityValidationException("Facility code is required");
         }
         if (StringUtils.hasText(facility.getFacilityName())) {

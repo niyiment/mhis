@@ -1,0 +1,40 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:mhis_db}
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:secret}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      connection-timeout: 20000
+
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+
+  # Security Configuration
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN
+
+logging:
+  level:
+    com.niyiment.mhis: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  file:
+    name: logs/application.log
+    max-size: 10MB
+    max-history: 30
+

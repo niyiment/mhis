@@ -1,3 +1,8 @@
 package com.niyiment.mhis.facility.repository;
 
-public class FacilitySpecification {}
+
+
+public class FacilitySpecification {
+
+}
+
