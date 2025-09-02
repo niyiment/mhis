@@ -1,6 +1,8 @@
 package com.niyiment.mhis.facility.dto;
 
 import com.niyiment.mhis.facility.constants.FacilityValidationMessage;
+import com.niyiment.mhis.facility.domain.FacilityType;
+import com.niyiment.mhis.facility.domain.LevelOfCare;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -12,10 +14,10 @@ public record FacilityUpdateRequest(
         String facilityName,
 
         @NotBlank(message = FacilityValidationMessage.FACILITY_TYPE_REQUIRED)
-        String facilityType,
+        FacilityType facilityType,
 
         @NotBlank(message = FacilityValidationMessage.LEVEL_OF_CARE_REQUIRED)
-        String levelOfCare,
+        LevelOfCare levelOfCare,
 
         @NotBlank(message = FacilityValidationMessage.STATE_REQUIRED)
         @Size(max=100, message = FacilityValidationMessage.STATE_MAX_LENGTH)
