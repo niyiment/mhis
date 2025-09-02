@@ -79,7 +79,7 @@ public class FacilitySpecification {
 
     public static Specification<Facility> hasLevelOfCare(LevelOfCare levelOfCare) {
         return (root, query, criteriaBuilder) ->
-                (levelOfCare != null) ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("
+                (levelOfCare != null) ? criteriaBuilder.equal(root.get("levelOfCare"), levelOfCare) : criteriaBuilder.conjunction();
     }
 
     public static Specification<Facility> isActive(Boolean active) {
