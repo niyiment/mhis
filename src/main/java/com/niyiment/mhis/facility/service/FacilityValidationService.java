@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 @Component
 public class FacilityValidationService {
-    private static final Pattern CODE_PATTERN = Pattern.compile("^[A-Z0-9]{3,20}$");
 
     public void validateFacilityCreation(Facility facility) {
         validateBasicFacilityData(facility);
@@ -49,18 +48,6 @@ public class FacilityValidationService {
             throw new FacilityValidationException("LGA is required");
         }
         validateContactPhone(facility.getContactPhone());
-    }
-
-    private String validateAndFormatFacilityCode(String code) {
-        if (!StringUtils.hasText(code)) {
-            throw new IllegalArgumentException("Facility code cannot be empty");
-        }
-        String formatted = code.trim().toUpperCase();
-        if (!CODE_PATTERN.matcher(formatted).matches()) {
-            throw new IllegalArgumentException("Facility code must be 3 - 20 characters long and contain only uppercase letters and numbers");
-        }
-
-        return formatted;
     }
 
     private void validateContactPhone(String contactPhone) {
