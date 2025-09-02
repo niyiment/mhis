@@ -5,8 +5,8 @@ import com.niyiment.mhis.facility.domain.LevelOfCare;
 
 public record FacilitySearchRequest(
         String searchTerm,
-        String district,
-        String region,
+        String state,
+        String lga,
         FacilityType facilityType,
         LevelOfCare levelOfCare,
         Boolean isActive,

@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e82ebc22-7534-46b6-8042-da77de3c908c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/domain/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/domain/Facility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/exception/DuplicateFacilityCodeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/exception/DuplicateFacilityCodeException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/exception/FacilityNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/exception/FacilityNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/repository/FacilityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/repository/FacilityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/repository/FacilitySpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/repository/FacilitySpecification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/service/FacilityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/service/FacilityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/service/FacilityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/service/FacilityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/service/FacilityValidationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/niyiment/mhis/facility/service/FacilityValidationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelog/001-create-facilities-table.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/001-create-facilities-table.xml" afterDir="false" />
-    </list>
+    <list default="true" id="e82ebc22-7534-46b6-8042-da77de3c908c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
