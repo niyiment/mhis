@@ -20,13 +20,6 @@ spring:
       hibernate:
         ddl-auto: update
 
-  # Security Configuration
-  security:
-    user:
-      name: admin
-      password: admin
-      roles: ADMIN
-
 logging:
   level:
     com.niyiment.mhis: DEBUG
