@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="create-mother-table" author="niyi">
+        <createTable tableName="mothers">
+            <!-- Primary Key -->
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- Basic Information -->
+            <column name="anc_unique_id" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="national_id" type="VARCHAR(50)">
+                <constraints unique="true"/>
+            </column>
+            <column name="facility_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" type="VARCHAR(100)"/>
+            <column name="last_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="age_years" type="INTEGER"/>
+            <column name="marital_status" type="VARCHAR(20)"/>
+            <column name="education_level" type="VARCHAR(50)"/>
+            <column name="occupation" type="VARCHAR(100)"/>
+
+            <!-- Contact Information -->
+            <column name="phone_primary" type="VARCHAR(20)"/>
+            <column name="phone_secondary" type="VARCHAR(20)"/>
+            <column name="address_line1" type="VARCHAR(255)"/>
+            <column name="address_line2" type="VARCHAR(255)"/>
+            <column name="ward" type="VARCHAR(100)"/>
+            <column name="district" type="VARCHAR(100)"/>
+            <column name="region" type="VARCHAR(100)"/>
+
+            <!-- Emergency Contact -->
+            <column name="next_of_kin_name" type="VARCHAR(255)"/>
+            <column name="next_of_kin_phone" type="VARCHAR(20)"/>
+            <column name="next_of_kin_relationship" type="VARCHAR(50)"/>
+
+            <!-- Obstetric History -->
+            <column name="gravidity" type="INTEGER" defaultValue="0"/>
+            <column name="parity" type="INTEGER" defaultValue="0"/>
+            <column name="term_births" type="INTEGER" defaultValue="0"/>
+            <column name="preterm_births" type="INTEGER" defaultValue="0"/>
+            <column name="abortions" type="INTEGER" defaultValue="0"/>
+            <column name="living_children" type="INTEGER" defaultValue="0"/>
+
+            <!-- Risk Factors and History -->
+            <column name="previous_cs" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="previous_pph" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="previous_eclampsia" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="previous_stillbirth" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="chronic_conditions" type="JSONB"/>
+            <column name="allergies" type="TEXT"/>
+
+            <!-- Current Pregnancy Details -->
+            <column name="lmp_date" type="DATE"/>
+            <column name="edd_date" type="DATE"/>
+            <column name="pregnancy_confirmed_date" type="DATE"/>
+
+            <!-- HIV/PMTCT Related -->
+            <column name="hiv_status" type="VARCHAR(20)"/>
+            <column name="hiv_test_date" type="DATE"/>
+            <column name="art_start_date" type="DATE"/>
+            <column name="art_status" type="VARCHAR(20)"/>
+            <column name="current_art_regimen" type="VARCHAR(100)"/>
+            <column name="last_vl_result" type="INTEGER"/>
+            <column name="last_vl_date" type="DATE"/>
+            <column name="vl_suppressed" type="BOOLEAN"/>
+
+            <!-- Partner Information -->
+            <column name="partner_hiv_status" type="VARCHAR(20)"/>
+            <column name="partner_tested" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="partner_notification_done" type="BOOLEAN" defaultValueBoolean="false"/>
+
+            <!-- System Fields -->
+            <column name="registration_date" type="DATE" defaultValueDate="CURRENT_DATE"/>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Foreign Key Constraints -->
+    <changeSet id="add-mother-foreign-keys" author="niyi">
+        <addForeignKeyConstraint
+                baseTableName="mothers"
+                baseColumnNames="facility_id"
+                constraintName="fk_mother_facility"
+                referencedTableName="facilities"
+                referencedColumnNames="id"
+                onDelete="RESTRICT"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <!-- Indexes for Performance -->
+    <changeSet id="create-mother-indexes" author="niyi">
+        <createIndex tableName="mothers" indexName="idx_mother_anc_unique_id">
+            <column name="anc_unique_id"/>
+        </createIndex>
+
+        <createIndex tableName="mothers" indexName="idx_mother_national_id">
+            <column name="national_id"/>
+        </createIndex>
+
+        <createIndex tableName="mothers" indexName="idx_mother_facility_id">
+            <column name="facility_id"/>
+        </createIndex>
+
+        <createIndex tableName="mothers" indexName="idx_mother_registration_date">
+            <column name="registration_date"/>
+        </createIndex>
+
+        <createIndex tableName="mothers" indexName="idx_mother_is_active">
+            <column name="is_active"/>
+        </createIndex>
+
+        <createIndex tableName="mothers" indexName="idx_mother_hiv_status">
+            <column name="hiv_status"/>
+        </createIndex>
+
+        <createIndex tableName="mothers" indexName="idx_mother_created_at">
+            <column name="created_at"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- Check Constraints for Data Integrity -->
+    <changeSet id="add-mother-check-constraints" author="niyi">
+        <sql dbms="postgresql">
+            <![CDATA[
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_age_years
+            CHECK (age_years IS NULL OR (age_years >= 10 AND age_years <= 60));
+
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_gravidity
+            CHECK (gravidity >= 0);
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_parity
+            CHECK (parity >= 0);
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_term_births
+            CHECK (term_births >= 0);
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_preterm_births
+            CHECK (preterm_births >= 0);
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_abortions
+            CHECK (abortions >= 0);
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_living_children
+            CHECK (living_children >= 0);
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_last_vl_result
+            CHECK (last_vl_result IS NULL OR last_vl_result >= 0);
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_marital_status
+            CHECK (marital_status IN ('SINGLE', 'MARRIED', 'DIVORCED', 'WIDOWED', 'SEPARATED'));
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_hiv_status
+            CHECK (hiv_status IN ('POSITIVE', 'NEGATIVE', 'UNKNOWN'));
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_art_status
+            CHECK (art_status IN ('NAIVE', 'ON_TREATMENT', 'DEFAULTED', 'STOPPED'));
+
+            ALTER TABLE mothers ADD CONSTRAINT chk_mother_partner_hiv_status
+            CHECK (partner_hiv_status IN ('POSITIVE', 'NEGATIVE', 'UNKNOWN'));
+            ]]>
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

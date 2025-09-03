@@ -37,6 +37,7 @@ public class FacilityServiceImpl implements FacilityService {
 
 
     @Override
+    @Transactional
     public FacilityResponse createFacility(FacilityCreateRequest request) {
         log.info("Creating facility with code: {}", request.facilityCode());
 
@@ -54,6 +55,7 @@ public class FacilityServiceImpl implements FacilityService {
     }
 
     @Override
+    @Transactional
     public FacilityResponse updateFacility(UUID facilityId, FacilityUpdateRequest request) {
         log.info("Updating facility with ID: {}", facilityId);
         Facility existingFacility = findEntityById(facilityId);
@@ -90,7 +92,10 @@ public class FacilityServiceImpl implements FacilityService {
 
     @Override
     public Page<FacilityResponse> findAll(Pageable pageable) {
-        return null;
+        log.debug("Finding all facilities");
+        Page<Facility> facilities = facilityRepository.findAll(pageable);
+
+        return facilities.map(facilityMapper::toResponse);
     }
 
     @Override
@@ -150,6 +155,7 @@ public class FacilityServiceImpl implements FacilityService {
     }
 
     @Override
+    @Transactional
     public void deactivateFacility(UUID facilityId) {
         log.info("Deactivating facility with ID: {}", facilityId);
         Facility facility = findEntityById(facilityId);
@@ -159,6 +165,7 @@ public class FacilityServiceImpl implements FacilityService {
     }
 
     @Override
+    @Transactional
     public void reactivateFacility(UUID facilityId) {
         log.info("Reactivating facility with ID: {}", facilityId);
         Facility facility = findEntityById(facilityId);
@@ -226,3 +233,4 @@ public class FacilityServiceImpl implements FacilityService {
         return formatted;
     }
 }
+
