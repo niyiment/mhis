@@ -86,11 +86,11 @@ public class Mother {
     @Column(name = "ward", length = 100)
     private String ward;
 
-    @Column(name = "district", length = 100)
-    private String district;
+    @Column(name = "state", length = 100)
+    private String state;
 
-    @Column(name = "region", length = 100)
-    private String region;
+    @Column(name = "lga", length = 100)
+    private String lga;
 
     // Emergency Contact
     @Column(name = "next_of_kin_name")
