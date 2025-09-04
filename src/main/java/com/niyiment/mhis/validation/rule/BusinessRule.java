@@ -6,7 +6,7 @@ package com.niyiment.mhis.validation.rule;
  */
 public interface BusinessRule<T> {
     boolean isApplicable(T data);
-    ValidationResult validate(T date);
+    ValidationResult validate(T data);
     String getRuleName();
     int getPriority();
 }

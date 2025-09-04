@@ -1,6 +1,8 @@
 package com.niyiment.mhis.mother.dto;
 
 import com.niyiment.mhis.mother.constants.MotherValidationMessage;
+import com.niyiment.mhis.mother.domain.ArtStatus;
+import com.niyiment.mhis.mother.domain.HivStatus;
 import com.niyiment.mhis.mother.domain.MaritalStatus;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
@@ -11,6 +13,8 @@ import java.util.UUID;
 
 @Builder
 public record MotherCreateRequest(
+        @NotBlank(message = MotherValidationMessage.ANC_UNIQUE_ID_REQUIRED)
+        String ancUniqueId,
         @NotBlank(message = MotherValidationMessage.FIRST_NAME_REQUIRED)
         @Size(max = 100, message = MotherValidationMessage.FIRST_NAME_MAX_LENGTH)
         String firstName,
@@ -21,7 +25,7 @@ public record MotherCreateRequest(
         String lastName,
         @NotBlank(message = MotherValidationMessage.DATE_OF_BIRTH_REQUIRED)
         @Past(message = MotherValidationMessage.DATE_OF_BIRTH_PAST)
-        String dateOfBirth,
+        LocalDate dateOfBirth,
         @NotBlank(message = MotherValidationMessage.FACILITY_REQUIRED)
         UUID facilityId,
         @Size(max = 50, message = MotherValidationMessage.NATIONAL_ID_MAX_LENGTH)
@@ -71,10 +75,10 @@ public record MotherCreateRequest(
         LocalDate eddDate,
         LocalDate pregnancyConfirmedDate,
 
-        String hivStatus,
+        HivStatus hivStatus,
         LocalDate hivTestDate,
         LocalDate artStartDate,
-        String artStatus,
+        ArtStatus artStatus,
         String currentArtRegimen,
         Integer lastVlResult,
         LocalDate lastVlDate,
