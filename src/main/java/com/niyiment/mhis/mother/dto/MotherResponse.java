@@ -1,5 +1,7 @@
 package com.niyiment.mhis.mother.dto;
 
+import com.niyiment.mhis.mother.domain.ArtStatus;
+import com.niyiment.mhis.mother.domain.HivStatus;
 import com.niyiment.mhis.mother.domain.MaritalStatus;
 import lombok.Builder;
 
@@ -14,7 +16,7 @@ public record MotherResponse(
         String firstName,
         String middleName,
         String lastName,
-        String dateOfBirth,
+        LocalDate dateOfBirth,
         UUID facilityId,
         String nationalId,
         MaritalStatus maritalStatus,
@@ -51,16 +53,16 @@ public record MotherResponse(
         LocalDate eddDate,
         LocalDate pregnancyConfirmedDate,
 
-        String hivStatus,
+        HivStatus hivStatus,
         LocalDate hivTestDate,
         LocalDate artStartDate,
-        String artStatus,
+        ArtStatus artStatus,
         String currentArtRegimen,
         Integer lastVlResult,
         LocalDate lastVlDate,
         Boolean vlSuppressed,
 
-        String partnerHivStatus,
+        HivStatus partnerHivStatus,
         Boolean partnerTested,
         Boolean partnerNotificationDone
 ) {}

@@ -84,7 +84,7 @@ public record MotherCreateRequest(
         LocalDate lastVlDate,
         Boolean vlSuppressed,
 
-        String partnerHivStatus,
+        HivStatus partnerHivStatus,
         Boolean partnerTested,
         Boolean partnerNotificationDone
 ) {}

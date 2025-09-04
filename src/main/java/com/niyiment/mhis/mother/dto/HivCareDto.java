@@ -11,6 +11,7 @@ public record HivCareDto(
         HivStatus hivStatus,
         LocalDate hivTestDate,
         ArtStatus artStatus,
+        LocalDate artStartDate,
         String currentRegimen,
         Integer lastVlResult,
         LocalDate lastVlDate,
