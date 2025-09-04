@@ -1,33 +1,36 @@
-package com.niyiment.mhis.mother.rule;
+package com.niyiment.mhis.mother.validation.rule;
 
+
+import com.niyiment.mhis.facility.repository.FacilityRepository;
 import com.niyiment.mhis.mother.dto.MotherCreateRequest;
-import com.niyiment.mhis.mother.repository.MotherRepository;
 import com.niyiment.mhis.validation.rule.BusinessRule;
 import com.niyiment.mhis.validation.rule.ValidationResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+
 /**
- * Validate that ANC Unique ID is not already in use
+ * Validate that the Facility is valid
  */
 @Component
 @RequiredArgsConstructor
-public class UniqueAncIdRule implements BusinessRule<MotherCreateRequest> {
-    private final MotherRepository motherRepository;
+public class ValidFacilityRule implements BusinessRule<MotherCreateRequest> {
+    private final FacilityRepository facilityRepository;
 
     @Override
     public boolean isApplicable(MotherCreateRequest data) {
-        return data != null && data.ancUniqueId() != null;
+        return data != null && data.facilityId() != null;
     }
 
     @Override
     public ValidationResult validate(MotherCreateRequest data) {
-        if (motherRepository.existsByAncUniqueId(data.ancUniqueId())) {
+        boolean facilityExists = facilityRepository.existsById(data.facilityId());
+        if (!facilityExists) {
             return ValidationResult.failure(
-                    "DUPLICATE_ANC_ID",
-                    "ANC Unique ID already exists: " + data.ancUniqueId(),
-                    "ancUniqueId",
-                    data.ancUniqueId()
+                "FACILITY_NOT_FOUND",
+                "Facility not found with ID: " + data.facilityId(),
+                "facilityId",
+                data.facilityId()
             );
         }
 
@@ -36,13 +39,11 @@ public class UniqueAncIdRule implements BusinessRule<MotherCreateRequest> {
 
     @Override
     public String getRuleName() {
-        return "UniqueAncIdRule";
+        return "ValidFacilityRule";
     }
 
     @Override
     public int getPriority() {
-        return 1;
+        return 2;
     }
-
-
 }

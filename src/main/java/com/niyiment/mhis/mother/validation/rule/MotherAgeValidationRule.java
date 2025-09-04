@@ -1,4 +1,4 @@
-package com.niyiment.mhis.mother.rule;
+package com.niyiment.mhis.mother.validation.rule;
 
 import com.niyiment.mhis.mother.dto.MotherCreateRequest;
 import com.niyiment.mhis.validation.rule.BusinessRule;

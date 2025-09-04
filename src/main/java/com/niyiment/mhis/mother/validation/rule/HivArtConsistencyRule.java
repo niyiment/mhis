@@ -1,4 +1,4 @@
-package com.niyiment.mhis.mother.rule;
+package com.niyiment.mhis.mother.validation.rule;
 
 import com.niyiment.mhis.mother.domain.ArtStatus;
 import com.niyiment.mhis.mother.domain.HivStatus;
